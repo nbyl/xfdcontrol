@@ -1,3 +1,4 @@
-include 'xfdcontrol-core'
-include 'xfdcontrol-plugins'
-include 'xfdcontrol-service'
+include 'core'
+include 'plugins/notification/tray'
+include 'service'
+include 'web'
