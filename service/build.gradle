@@ -1,29 +1,13 @@
 apply plugin: 'application'
 apply plugin: 'spring-boot'
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.2.RELEASE")
-    }
-}
-
 mainClassName = "com.github.nbyl.xfdcontrol.service.Application"
 
 dependencies {
     compile project(":core")
 
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-
     compile("org.apache.camel:camel-spring:2.13.1",
             "org.apache.camel:camel-http:2.13.1",
             "org.apache.camel:camel-gson:2.13.1")
-
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-
-    runtime("org.webjars:bootstrap:3.1.1-1",
-            "org.webjars:jquery:2.1.1")
 }
 

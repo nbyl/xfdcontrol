@@ -1,6 +1,7 @@
 package com.github.nbyl.xfdcontrol.service.services;
 
 
+import com.github.nbyl.xfdcontrol.core.settings.GlobalSettings;
 import com.github.nbyl.xfdcontrol.core.status.JobStatus;
 import com.google.common.base.Optional;
 import org.apache.camel.CamelContext;
@@ -18,10 +19,10 @@ public class StatusRouteService {
     private static final String ROUTE_NAME = "StatusUpdateRoute";
 
     @Autowired
-    private SettingsService settingsService;
+    private CamelContext camelContext;
 
     @Autowired
-    private CamelContext camelContext;
+    private GlobalSettings settings;
 
     @PostConstruct
     public void startStatusRoute() throws Exception {
@@ -34,9 +35,8 @@ public class StatusRouteService {
         camelContext.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                // TODO: make this configurable
                 from("timer://statusUpdate?fixedRate=true&delay=0&period=10000")
-                        .to(settingsService.getSettings().getJenkinsUrl() + "/api/json")
+                        .to(settings.getJobUrl() + "/api/json")
                         .unmarshal().json(JsonLibrary.Gson, JobStatus.class)
                         .to("bean:statusDispatcher")
                         .routeId(ROUTE_NAME);
