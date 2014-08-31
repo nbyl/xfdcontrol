@@ -1,7 +1,7 @@
 package com.github.nbyl.xfdcontrol.service.services;
 
 
-import com.github.nbyl.xfdcontrol.core.settings.GlobalSettings;
+import com.github.nbyl.xfdcontrol.service.GlobalSettings;
 import com.github.nbyl.xfdcontrol.core.status.JobStatus;
 import com.google.common.base.Optional;
 import org.apache.camel.CamelContext;

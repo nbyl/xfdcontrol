@@ -1,4 +1,4 @@
-package com.github.nbyl.xfdcontrol.core.settings;
+package com.github.nbyl.xfdcontrol.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class GlobalSettings {
 
-    @Value("job.url")
+    @Value("${job.url}")
     private String jobUrl;
 
     public String getJobUrl() {

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -16,13 +17,12 @@ public class StatusDispatcher {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StatusDispatcher.class);
 
-    private final List<NotificationPlugin> plugins;
+    @Autowired(required = false)
+    private List<NotificationPlugin> plugins;
 
     private Optional<JobStatus> lastStatus;
 
-    @Autowired
-    public StatusDispatcher(List<NotificationPlugin> plugins) {
-        this.plugins = plugins;
+    public StatusDispatcher() {
         this.lastStatus = Optional.absent();
     }
 
@@ -37,8 +37,10 @@ public class StatusDispatcher {
     }
 
     private void fireJobStatusChanged(JobStatusChangedEvent event) {
-        for (NotificationPlugin plugin : this.plugins) {
-            plugin.jobStatusChanged(event);
+        if(this.plugins != null) {
+            for (NotificationPlugin plugin : this.plugins) {
+                plugin.jobStatusChanged(event);
+            }
         }
     }
 }
