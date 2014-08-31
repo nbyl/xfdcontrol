@@ -1,8 +1,7 @@
 package com.github.nbyl.xfdcontrol.service.plugins.tray;
 
-import com.github.nbyl.xfdcontrol.service.JobStatus;
-import com.github.nbyl.xfdcontrol.service.JobStatusChangedEvent;
-import com.github.nbyl.xfdcontrol.service.NotificationPlugin;
+import com.github.nbyl.xfdcontrol.core.plugins.NotificationPlugin;
+import com.github.nbyl.xfdcontrol.core.status.JobStatusChangedEvent;
 import org.springframework.stereotype.Component;
 
 @Component

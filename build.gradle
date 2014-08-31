@@ -1,10 +1,14 @@
-allprojects {
+subprojects {
 
     apply plugin: 'java'
 
     repositories {
         mavenCentral()
     }
+}
+
+task build() {
+
 }
 
 task wrapper(type: Wrapper) {

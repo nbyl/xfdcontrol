@@ -1,8 +1,8 @@
 package com.github.nbyl.xfdcontrol.service.services;
 
-import com.github.nbyl.xfdcontrol.service.JobStatus;
-import com.github.nbyl.xfdcontrol.service.JobStatusChangedEvent;
-import com.github.nbyl.xfdcontrol.service.NotificationPlugin;
+import com.github.nbyl.xfdcontrol.core.plugins.NotificationPlugin;
+import com.github.nbyl.xfdcontrol.core.status.JobStatus;
+import com.github.nbyl.xfdcontrol.core.status.JobStatusChangedEvent;
 import com.google.common.base.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ public class StatusDispatcher {
     public void dispatchStatus(JobStatus status) {
         LOGGER.info("Got status: {}", status);
         if (!this.lastStatus.isPresent() || !this.lastStatus.get().equals(status)) {
-            JobStatusChangedEvent event = new JobStatusChangedEvent(this, status, this.lastStatus);
+            JobStatusChangedEvent event = new JobStatusChangedEvent(status, this.lastStatus);
             this.lastStatus = Optional.fromNullable(status);
 
             fireJobStatusChanged(event);

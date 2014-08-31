@@ -13,7 +13,7 @@ buildscript {
 mainClassName = "com.github.nbyl.xfdcontrol.service.Application"
 
 dependencies {
-    compile project(":xfdcontrol-core")
+    compile project(":core")
 
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 
