@@ -1,4 +1,4 @@
-package com.github.nbyl.xfdcontrol.service.services;
+package com.github.nbyl.xfdcontrol.service.status;
 
 import com.github.nbyl.xfdcontrol.core.plugins.NotificationPlugin;
 import com.github.nbyl.xfdcontrol.core.status.JobStatus;
@@ -27,16 +27,6 @@ public class StatusDispatcher implements ApplicationListener<JobStatusEvent> {
         this.lastStatus = Optional.absent();
     }
 
-    public void dispatchStatus(JobStatus status) {
-        LOGGER.info("Got status: {}", status);
-        if (!this.lastStatus.isPresent() || !this.lastStatus.get().equals(status)) {
-            JobStatusChangedEvent event = new JobStatusChangedEvent(status, this.lastStatus);
-            this.lastStatus = Optional.fromNullable(status);
-
-            fireJobStatusChanged(event);
-        }
-    }
-
     private void fireJobStatusChanged(JobStatusChangedEvent event) {
         if (this.plugins != null) {
             for (NotificationPlugin plugin : this.plugins) {
@@ -47,6 +37,14 @@ public class StatusDispatcher implements ApplicationListener<JobStatusEvent> {
 
     @Override
     public void onApplicationEvent(JobStatusEvent event) {
+        JobStatus jobStatus = event.getStatus();
         LOGGER.info("Got status: {}", event.getStatus());
+
+        if (!this.lastStatus.isPresent() || !this.lastStatus.get().equals(jobStatus)) {
+            JobStatusChangedEvent changedEvent = new JobStatusChangedEvent(jobStatus, this.lastStatus);
+            this.lastStatus = Optional.fromNullable(jobStatus);
+
+            fireJobStatusChanged(changedEvent);
+        }
     }
 }
