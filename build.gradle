@@ -1,3 +1,5 @@
+defaultTasks 'clean', 'build'
+
 ext.springBootVersion = "1.1.5.RELEASE"
 
 subprojects {
