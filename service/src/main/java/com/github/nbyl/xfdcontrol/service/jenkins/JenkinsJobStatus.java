@@ -2,6 +2,8 @@ package com.github.nbyl.xfdcontrol.service.jenkins;
 
 import com.github.nbyl.xfdcontrol.core.status.JobStatus;
 import com.google.common.base.Objects;
+import com.google.common.base.Strings;
+import org.apache.commons.codec.binary.StringUtils;
 
 public class JenkinsJobStatus implements JobStatus {
 
@@ -9,14 +11,35 @@ public class JenkinsJobStatus implements JobStatus {
 
     private String color;
 
+    public JenkinsJobStatus(String name, String color) {
+        this.name = name;
+        this.color = color;
+    }
+
+    public JenkinsJobStatus() {
+    }
+
     @Override
     public Status getStatus() {
-        return null;
+        if (Strings.isNullOrEmpty(this.color)) {
+            return Status.ERROR;
+        } else if (this.color.startsWith("blue")) {
+            return Status.SUCCESS;
+        } else if (this.color.startsWith("yellow")) {
+            return Status.TESTS_FAILING;
+        } else if (this.color.startsWith("red")) {
+            return Status.FAILED;
+        }
+
+        return Status.ERROR;
     }
 
     @Override
     public boolean isBuilding() {
-        return false;
+        if(Strings.isNullOrEmpty(this.color)) {
+            return false;
+        }
+        return this.color.endsWith("_anime");
     }
 
     public String getName() {
