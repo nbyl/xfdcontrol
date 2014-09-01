@@ -1,8 +1,7 @@
-package com.github.nbyl.xfdcontrol.service.services;
+package com.github.nbyl.xfdcontrol.service.jenkins;
 
 
 import com.github.nbyl.xfdcontrol.core.settings.GlobalSettings;
-import com.github.nbyl.xfdcontrol.core.status.JobStatus;
 import com.google.common.base.Optional;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Route;
@@ -37,8 +36,9 @@ public class StatusRouteService {
             public void configure() throws Exception {
                 from("timer://statusUpdate?fixedRate=true&delay=0&period=10000")
                         .to(settings.getJobUrl() + "/api/json")
-                        .unmarshal().json(JsonLibrary.Gson, JobStatus.class)
-                        .to("bean:statusDispatcher")
+                        .unmarshal().json(JsonLibrary.Gson, JenkinsJobStatus.class)
+                        .convertBodyTo(JenkinsJobStatusEvent.class)
+                        .to("spring-event://default")
                         .routeId(ROUTE_NAME);
             }
         });

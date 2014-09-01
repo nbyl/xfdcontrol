@@ -3,17 +3,18 @@ package com.github.nbyl.xfdcontrol.service.services;
 import com.github.nbyl.xfdcontrol.core.plugins.NotificationPlugin;
 import com.github.nbyl.xfdcontrol.core.status.JobStatus;
 import com.github.nbyl.xfdcontrol.core.status.JobStatusChangedEvent;
+import com.github.nbyl.xfdcontrol.core.status.JobStatusEvent;
 import com.google.common.base.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class StatusDispatcher {
+public class StatusDispatcher implements ApplicationListener<JobStatusEvent> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StatusDispatcher.class);
 
@@ -37,10 +38,15 @@ public class StatusDispatcher {
     }
 
     private void fireJobStatusChanged(JobStatusChangedEvent event) {
-        if(this.plugins != null) {
+        if (this.plugins != null) {
             for (NotificationPlugin plugin : this.plugins) {
                 plugin.jobStatusChanged(event);
             }
         }
+    }
+
+    @Override
+    public void onApplicationEvent(JobStatusEvent event) {
+        LOGGER.info("Got status: {}", event.getStatus());
     }
 }
