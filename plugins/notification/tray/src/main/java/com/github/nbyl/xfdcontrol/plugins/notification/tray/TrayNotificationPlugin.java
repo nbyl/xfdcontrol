@@ -14,6 +14,7 @@ public class TrayNotificationPlugin extends AbstractNotificationPlugin {
 
     @Override
     public void jobStatusChanged(JobStatusChangedEvent event) {
-        LOGGER.info("Job status changed to " + event.getNewStatus());
+        LOGGER.info("Job status changed to " + event.getNewStatus().getStatus() + ".");
+        LOGGER.info("Job is building: " + event.getNewStatus().isBuilding() + ".");
     }
 }
