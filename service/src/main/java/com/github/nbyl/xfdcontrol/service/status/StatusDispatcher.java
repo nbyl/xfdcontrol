@@ -8,6 +8,8 @@ import com.google.common.base.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +20,8 @@ public class StatusDispatcher implements ApplicationListener<JobStatusEvent> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StatusDispatcher.class);
 
-    @Autowired(required = false)
-    private List<NotificationPlugin> plugins;
+    @Autowired
+    private ApplicationEventPublisher publisher;
 
     private Optional<JobStatus> lastStatus;
 
@@ -27,24 +29,16 @@ public class StatusDispatcher implements ApplicationListener<JobStatusEvent> {
         this.lastStatus = Optional.absent();
     }
 
-    private void fireJobStatusChanged(JobStatusChangedEvent event) {
-        if (this.plugins != null) {
-            for (NotificationPlugin plugin : this.plugins) {
-                plugin.jobStatusChanged(event);
-            }
-        }
-    }
-
     @Override
     public void onApplicationEvent(JobStatusEvent event) {
         JobStatus jobStatus = event.getStatus();
-        LOGGER.info("Got status: {}", event.getStatus());
+        LOGGER.debug("Got status: {}", event.getStatus());
 
         if (!this.lastStatus.isPresent() || !this.lastStatus.get().equals(jobStatus)) {
-            JobStatusChangedEvent changedEvent = new JobStatusChangedEvent(jobStatus, this.lastStatus);
+            JobStatusChangedEvent changedEvent = new JobStatusChangedEvent(this, jobStatus, this.lastStatus);
             this.lastStatus = Optional.fromNullable(jobStatus);
 
-            fireJobStatusChanged(changedEvent);
+            this.publisher.publishEvent(changedEvent);
         }
     }
 }

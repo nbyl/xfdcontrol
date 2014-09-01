@@ -4,7 +4,12 @@ apply plugin: 'spring-boot'
 mainClassName = "com.github.nbyl.xfdcontrol.service.Application"
 
 dependencies {
-    compile project(":core"), project(":web")
+    compile project(":core"),
+            project(":web")
+
+    runtime project(":plugins/notification/tray")
+
+    //compile("org.springframework.boot:spring-boot-starter-actuator")
 
     compile("org.apache.camel:camel-spring:2.13.1",
             "org.apache.camel:camel-http:2.13.1",

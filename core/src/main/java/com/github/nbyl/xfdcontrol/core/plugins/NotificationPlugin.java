@@ -1,12 +1,7 @@
 package com.github.nbyl.xfdcontrol.core.plugins;
 
 import com.github.nbyl.xfdcontrol.core.status.JobStatusChangedEvent;
+import org.springframework.context.ApplicationListener;
 
-public interface NotificationPlugin {
-
-    void start();
-
-    void jobStatusChanged(JobStatusChangedEvent event);
-
-    void shutdown();
+public interface NotificationPlugin extends ApplicationListener<JobStatusChangedEvent> {
 }
