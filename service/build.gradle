@@ -1,6 +1,7 @@
 apply plugin: 'application'
 apply plugin: 'spring-boot'
 
+applicationDefaultJvmArgs = ['-Dspring.config.location=${HOME}/.xfdcontrol.properties']
 mainClassName = "com.github.nbyl.xfdcontrol.service.Application"
 
 dependencies {
