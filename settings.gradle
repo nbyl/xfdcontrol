@@ -1,4 +1,5 @@
 include 'core'
+include 'plugins/notification/blink1'
 include 'plugins/notification/tray'
 include 'service'
 include 'web'

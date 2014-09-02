@@ -1,4 +1,4 @@
-package com.github.nbyl.xfdcontrol.service;
+package com.github.nbyl.xfdcontrol.core.settings;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
