@@ -7,7 +7,8 @@ dependencies {
     compile project(":core"),
             project(":web")
 
-    runtime project(":plugins/notification/tray")
+    //runtime project(":plugins/notification/tray")
+    runtime project(":plugins/notification/blink1")
 
     //compile("org.springframework.boot:spring-boot-starter-actuator")
 
