@@ -1,0 +1,5 @@
+# the url to reach the jenkins job to monitor
+job.url=http://localhost:8080/job/test-job
+
+# path to the blink1-tool binary
+blink1.tool.path=/home/nbyl/opt/blink1-tool
