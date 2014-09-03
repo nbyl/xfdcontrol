@@ -26,6 +26,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 
 @ComponentScan("com.github.nbyl.xfdcontrol")
@@ -33,19 +34,29 @@ import java.io.File;
 @EnableWebMvc
 public class Application {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
     public static final String SPRING_CONFIG_LOCATION = "spring.config.location";
 
-    public static void main(String[] args) {
-        installConfigLocation();
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
-        SpringApplication.run(Application.class, args);
+    public static void main(String[] args) {
+        try {
+            installConfigLocation();
+
+            SpringApplication.run(Application.class, args);
+        } catch (Exception e) {
+            LOGGER.error("Error running the application", e);
+        }
     }
 
-    private static void installConfigLocation() {
+    private static void installConfigLocation() throws FileNotFoundException {
         if (Strings.isNullOrEmpty(System.getProperty(SPRING_CONFIG_LOCATION))) {
-            LOGGER.debug("Loading configuration from user home directory {}.", StandardSystemProperty.USER_HOME.value());
             File configFile = new File(StandardSystemProperty.USER_HOME.value(), ".xfdcontrol.properties");
+            LOGGER.debug("Loading configuration from file {}.", configFile.getAbsolutePath());
+
+            if (!configFile.exists()) {
+                throw new FileNotFoundException("Config file " + configFile.getPath() + " does not exist.");
+            }
+
             System.setProperty(SPRING_CONFIG_LOCATION, configFile.getAbsolutePath());
         } else {
             LOGGER.debug("Configuration location already set.");
