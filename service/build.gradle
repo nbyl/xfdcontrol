@@ -20,6 +20,8 @@ apply plugin: 'spring-boot'
 applicationName = "xfdcontrol"
 mainClassName = "com.github.nbyl.xfdcontrol.service.Application"
 
+docBuildDir = "$buildDir/doc"
+
 dependencies {
     compile project(":core"),
             project(":web")
@@ -32,6 +34,23 @@ dependencies {
     compile("org.apache.camel:camel-spring:2.13.1",
             "org.apache.camel:camel-http:2.13.1",
             "org.apache.camel:camel-gson:2.13.1")
+}
+
+task copySampleConfigFiles(type: Copy) {
+    from("$projectDir/../doc") {
+        include "**/*.sample"
+    }
+    into file("$docBuildDir")
+}
+
+task createDocs {
+    def docs = file("$docBuildDir")
+    outputs.dir docs
+}
+createDocs.dependsOn copySampleConfigFiles
+
+applicationDistribution.from(createDocs) {
+    into "doc"
 }
 
 build.dependsOn distZip
