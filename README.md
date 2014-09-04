@@ -1,2 +1,1 @@
-xfdcontrol
-==========
+Please take a look at our [GitHub Page](http://nbyl.github.io/xfdcontrol/).
