@@ -1,8 +1,0 @@
----
-layout: post
-title:  "Version 0.1.0 released"
-date:   2014-09-03 18:00
-categories: releases
----
-
-Today we have released the first alpha version of XFDControl.
