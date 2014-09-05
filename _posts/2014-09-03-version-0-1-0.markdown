@@ -6,7 +6,7 @@ categories: manuals
 ---
 
 XFDControl Manual Version 0.1.0
-==========
+=========================
 
 Installation
 ============
