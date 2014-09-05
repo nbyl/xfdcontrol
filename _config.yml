@@ -2,7 +2,7 @@
 title: XFDControl
 email: nico@nicolas-byl.eu
 description: "eXtreme Feedback made easy."
-baseurl: ""
+baseurl: "/xfdcontrol"
 url: "https://nbyl.github.com/xfdcontrol"
 github_username:  nbyl
 
