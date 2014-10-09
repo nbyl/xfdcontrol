@@ -14,19 +14,22 @@
  * limitations under the License.
  */
 
-package com.github.nbyl.xfdcontrol.web;
+package com.github.nbyl.xfdcontrol.service.web;
 
+import com.github.nbyl.xfdcontrol.core.status.JobStatusService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Map;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class MainController {
+public class StatusController {
 
-    @RequestMapping("/")
-    public String welcome(Map<String, Object> model) {
-        model.put("message", "Hello World!");
-        return "index";
+    @Autowired
+    public JobStatusService statusService;
+
+    @RequestMapping("/status")
+    public ModelAndView showCurrentStatus() {
+        return new ModelAndView("status", "jobStatus", this.statusService.getLastStatus());
     }
 }

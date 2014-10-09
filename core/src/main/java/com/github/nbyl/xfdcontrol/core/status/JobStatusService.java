@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-dependencies {
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion")
+package com.github.nbyl.xfdcontrol.core.status;
 
-    runtime("org.webjars:bootstrap:3.1.1-1",
-            "org.webjars:jquery:2.1.1")
+import com.google.common.base.Optional;
 
+public interface JobStatusService {
+    Optional<JobStatus> getLastStatus();
 }

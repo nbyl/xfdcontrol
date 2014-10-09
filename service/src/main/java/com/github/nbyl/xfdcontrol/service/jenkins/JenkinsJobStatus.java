@@ -35,6 +35,11 @@ public class JenkinsJobStatus implements JobStatus {
     }
 
     @Override
+    public String getJobName() {
+        return getName();
+    }
+
+    @Override
     public Status getStatus() {
         if (Strings.isNullOrEmpty(this.color)) {
             return Status.ERROR;

@@ -1,0 +1,28 @@
+#job-status-container {
+    height: 80vh;
+}
+
+.job-status-success {
+    background-color: green;
+    color: white;
+}
+
+.job-status-tests_failing {
+    background-color: yellow;
+}
+
+.job-status-failed {
+    background-color: red;
+    color: white;
+}
+
+.job-status-error {
+    background-color: orange;
+    color: white;
+}
+
+.job-title {
+    font-size: 6em;
+    font-weight: bold;
+    text-align: center;
+}
