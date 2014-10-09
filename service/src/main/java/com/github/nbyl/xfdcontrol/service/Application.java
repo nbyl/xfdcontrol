@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,7 +30,6 @@ import java.io.FileNotFoundException;
 
 @ComponentScan("com.github.nbyl.xfdcontrol")
 @EnableAutoConfiguration
-@EnableWebMvc
 public class Application {
 
     public static final String SPRING_CONFIG_LOCATION = "spring.config.location";
