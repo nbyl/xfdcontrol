@@ -16,7 +16,7 @@
 
 defaultTasks 'clean', 'build'
 
-ext.springBootVersion = "1.1.5.RELEASE"
+ext.springBootVersion = "1.1.7.RELEASE"
 
 subprojects {
 
