@@ -18,7 +18,7 @@ package com.github.nbyl.xfdcontrol.service.status;
 
 import com.github.nbyl.xfdcontrol.core.status.JobStatus;
 import com.github.nbyl.xfdcontrol.core.status.JobStatusChangedEvent;
-import com.github.nbyl.xfdcontrol.core.status.JobStatusEvent;
+import com.github.nbyl.xfdcontrol.core.status.JobStatusReceivedEvent;
 import com.google.common.base.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StatusDispatcher implements ApplicationListener<JobStatusEvent> {
+public class StatusDispatcher implements ApplicationListener<JobStatusReceivedEvent> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StatusDispatcher.class);
 
@@ -42,7 +42,7 @@ public class StatusDispatcher implements ApplicationListener<JobStatusEvent> {
     }
 
     @Override
-    public void onApplicationEvent(JobStatusEvent event) {
+    public void onApplicationEvent(JobStatusReceivedEvent event) {
         JobStatus jobStatus = event.getStatus();
         LOGGER.debug("Got status: {}", event.getStatus());
 

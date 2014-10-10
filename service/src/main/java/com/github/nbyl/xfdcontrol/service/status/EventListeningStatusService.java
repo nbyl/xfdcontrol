@@ -17,14 +17,14 @@
 package com.github.nbyl.xfdcontrol.service.status;
 
 import com.github.nbyl.xfdcontrol.core.status.JobStatus;
-import com.github.nbyl.xfdcontrol.core.status.JobStatusEvent;
+import com.github.nbyl.xfdcontrol.core.status.JobStatusReceivedEvent;
 import com.github.nbyl.xfdcontrol.core.status.JobStatusService;
 import com.google.common.base.Optional;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EventListeningStatusService implements ApplicationListener<JobStatusEvent>, JobStatusService {
+public class EventListeningStatusService implements ApplicationListener<JobStatusReceivedEvent>, JobStatusService {
 
     private Optional<JobStatus> lastStatus;
 
@@ -34,7 +34,7 @@ public class EventListeningStatusService implements ApplicationListener<JobStatu
     }
 
     @Override
-    public void onApplicationEvent(JobStatusEvent event) {
+    public void onApplicationEvent(JobStatusReceivedEvent event) {
         this.lastStatus = Optional.fromNullable(event.getStatus());
     }
 }
