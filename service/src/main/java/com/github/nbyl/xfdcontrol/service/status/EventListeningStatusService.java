@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventListeningStatusService implements ApplicationListener<JobStatusReceivedEvent>, JobStatusService {
 
-    private Optional<JobStatus> lastStatus;
+    private Optional<JobStatus> lastStatus = Optional.absent();
 
     @Override
     public Optional<JobStatus> getLastStatus() {
