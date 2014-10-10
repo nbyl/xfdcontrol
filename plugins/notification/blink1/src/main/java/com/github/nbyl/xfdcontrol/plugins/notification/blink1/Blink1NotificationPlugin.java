@@ -18,8 +18,9 @@ package com.github.nbyl.xfdcontrol.plugins.notification.blink1;
 
 import com.github.nbyl.xfdcontrol.core.plugins.AbstractNotificationPlugin;
 import com.github.nbyl.xfdcontrol.core.status.JobStatus;
-import com.github.nbyl.xfdcontrol.core.status.JobStatusChangedEvent;
+import com.github.nbyl.xfdcontrol.core.status.JobStatusReceivedEvent;
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,27 +41,33 @@ public class Blink1NotificationPlugin extends AbstractNotificationPlugin {
     @Value("${blink1.statusChange.blinkCount:5}")
     private int statusChangeBlinkCount;
 
+    private Optional<JobStatus> lastStatus = Optional.absent();
+
     @PostConstruct
     public void logValues() {
         LOGGER.debug("Using blink1 tool from {}", this.blink1ToolPath);
     }
 
     @Override
-    public void jobStatusChanged(JobStatusChangedEvent event) {
-        LOGGER.debug("Job status changed to " + event.getNewStatus().getStatus() + ".");
-        LOGGER.debug("Job is building: " + event.getNewStatus().isBuilding() + ".");
+    protected void jobStatusReceived(JobStatusReceivedEvent event) {
+        JobStatus status = event.getStatus();
 
-        JobStatus newStatus = event.getNewStatus();
-        if (newStatus.isBuilding() && event.getOldStatus().isPresent()) {
-            return;
-        }
-        Color statusColor = mapStatusToColor(newStatus.getStatus());
+        boolean changed = hasStatusChanged(status);
+        Color statusColor = mapStatusToColor(status.getStatus());
         try {
-            blink(statusColor);
+            if (changed) {
+                blink(statusColor);
+                this.lastStatus = Optional.fromNullable(status);
+            }
             changeToColor(statusColor);
         } catch (IOException e) {
+            this.lastStatus = Optional.absent();
             LOGGER.error("There was an error updating the blink1.", e);
         }
+    }
+
+    private boolean hasStatusChanged(JobStatus status) {
+        return !this.lastStatus.isPresent() || (this.lastStatus.isPresent() && !this.lastStatus.get().equals(status));
     }
 
     private void blink(Color statusColor) throws IOException {

@@ -13,16 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.nbyl.xfdcontrol.core.status;
 
-import org.springframework.context.ApplicationEvent;
+public class JobStatusReceivedEvent extends JobStatusEventBase {
 
-public abstract class JobStatusEvent extends ApplicationEvent {
+    private final JobStatus status;
 
-    public JobStatusEvent(Object source) {
+    public JobStatusReceivedEvent(Object source, JobStatus status) {
         super(source);
+
+        this.status = status;
     }
 
-    public abstract JobStatus getStatus();
+    public JobStatus getStatus() {
+        return status;
+    }
 }

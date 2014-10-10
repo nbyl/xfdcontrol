@@ -17,13 +17,25 @@
 package com.github.nbyl.xfdcontrol.core.plugins;
 
 import com.github.nbyl.xfdcontrol.core.status.JobStatusChangedEvent;
+import com.github.nbyl.xfdcontrol.core.status.JobStatusEventBase;
+import com.github.nbyl.xfdcontrol.core.status.JobStatusReceivedEvent;
 
 public abstract class AbstractNotificationPlugin implements NotificationPlugin {
     @Override
-    public void onApplicationEvent(JobStatusChangedEvent event) {
+    public void onApplicationEvent(JobStatusEventBase event) {
         // TODO: check for enabled here
-        this.jobStatusChanged(event);
+        if (event instanceof JobStatusChangedEvent) {
+            this.jobStatusChanged((JobStatusChangedEvent) event);
+        } else if (event instanceof JobStatusReceivedEvent) {
+            this.jobStatusReceived((JobStatusReceivedEvent) event);
+        } else {
+            throw new IllegalArgumentException("Not valid job status class: " + event.getClass().toString());
+        }
     }
 
-    protected abstract void jobStatusChanged(JobStatusChangedEvent event);
+    protected void jobStatusChanged(JobStatusChangedEvent event) {
+    }
+
+    protected void jobStatusReceived(JobStatusReceivedEvent event) {
+    }
 }
