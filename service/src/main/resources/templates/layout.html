@@ -44,8 +44,14 @@
         Fake content
     </div>
 
-    <script th:src="@{/webjars/jquery/2.1.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/3.1.1/js/bootstrap.min.js}"></script>
 </div>
+
+<script th:src="@{/webjars/jquery/2.1.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.1.1/js/bootstrap.min.js}"></script>
+
+<div layout:fragment="postPageScripts">
+    Scripts go here
+</div>
+
 </body>
 </html>

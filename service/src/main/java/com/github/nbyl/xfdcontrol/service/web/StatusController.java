@@ -29,7 +29,12 @@ public class StatusController {
     public JobStatusService statusService;
 
     @RequestMapping("/status")
-    public ModelAndView showCurrentStatus() {
-        return new ModelAndView("status", "jobStatus", this.statusService.getLastStatus());
+    public ModelAndView showStatusPage() {
+        return new ModelAndView("status");
+    }
+
+    @RequestMapping("/status/view")
+    public ModelAndView getCurrentStatus() {
+        return new ModelAndView("status-view", "jobStatus", this.statusService.getLastStatus());
     }
 }

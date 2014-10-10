@@ -15,9 +15,9 @@
   ~ limitations under the License.
   -->
 
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="layout">
+<html
+        xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+        layout:decorator="layout">
 <head>
     <title>Status</title>
 </head>
@@ -26,10 +26,24 @@
 
 <div layout:fragment="content" class="container">
 
-    <div th:if="${jobStatus.isPresent()}" id="job-status-container"
-         th:class="|job-status-${#strings.toLowerCase(jobStatus.get().status)}|">
-        <div class="job-title" th:text="${jobStatus.get().jobName}"></div>
+    <div id="job-status-container">
     </div>
+
 </div>
+
+<div layout:fragment="postPageScripts">
+    <script>
+        $(document).ready(function() {
+            $('#job-status-container').load('status/view');
+
+        var refreshId = setInterval(function() {
+            $("#job-status-container").load('status/view?randval='+ Math.random());
+            }, 10000);
+            $.ajaxSetup({ cache: false });
+          });
+
+    </script>
+</div>
+
 </body>
 </html>
