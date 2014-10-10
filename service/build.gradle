@@ -28,6 +28,8 @@ dependencies {
     //runtime project(":plugins/notification/tray")
     runtime project(":plugins/notification/blink1")
 
+    runtime project(":web")
+
     compile("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion")
 
     //compile("org.springframework.boot:spring-boot-starter-actuator")
@@ -35,9 +37,6 @@ dependencies {
     compile("org.apache.camel:camel-spring:2.13.1",
             "org.apache.camel:camel-http:2.13.1",
             "org.apache.camel:camel-gson:2.13.1")
-
-    runtime("org.webjars:bootstrap:3.1.1-1",
-            "org.webjars:jquery:2.1.1")
 }
 
 task copySampleConfigFiles(type: Copy) {

@@ -13,17 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+dependencies {
+    compile project(":core")
 
-package com.github.nbyl.xfdcontrol.service.web;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-@Controller
-public class MainController {
-
-    @RequestMapping("/")
-    public String index() {
-        return "redirect:/status";
-    }
+    runtime("org.webjars:bootstrap:3.1.1-1",
+            "org.webjars:jquery:2.1.1")
 }

@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.awt.*;
 import java.io.IOException;
 
@@ -38,6 +39,11 @@ public class Blink1NotificationPlugin extends AbstractNotificationPlugin {
 
     @Value("${blink1.statusChange.blinkCount:5}")
     private int statusChangeBlinkCount;
+
+    @PostConstruct
+    public void logValues() {
+        LOGGER.debug("Using blink1 tool from {}", this.blink1ToolPath);
+    }
 
     @Override
     public void jobStatusChanged(JobStatusChangedEvent event) {

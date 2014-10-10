@@ -14,8 +14,16 @@
  * limitations under the License.
  */
 
-include 'core'
-include 'plugins/notification/blink1'
-//include 'plugins/notification/tray'
-include 'service'
-include 'web'
+package com.github.nbyl.xfdcontrol.web;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class MainController {
+
+    @RequestMapping("/")
+    public String index() {
+        return "redirect:/status";
+    }
+}

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.nbyl.xfdcontrol.service.web;
+package com.github.nbyl.xfdcontrol.web;
 
 import com.github.nbyl.xfdcontrol.core.status.JobStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
