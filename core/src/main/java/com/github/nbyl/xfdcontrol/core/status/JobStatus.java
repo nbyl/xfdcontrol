@@ -25,7 +25,7 @@ public interface JobStatus {
         ERROR
     }
 
-    ;
+    String getJobName();
 
     Status getStatus();
 

@@ -23,11 +23,14 @@ mainClassName = "com.github.nbyl.xfdcontrol.service.Application"
 docBuildDir = "$buildDir/doc"
 
 dependencies {
-    compile project(":core"),
-            project(":web")
+    compile project(":core")
 
     //runtime project(":plugins/notification/tray")
     runtime project(":plugins/notification/blink1")
+
+    runtime project(":web")
+
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion")
 
     //compile("org.springframework.boot:spring-boot-starter-actuator")
 

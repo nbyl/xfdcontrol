@@ -16,14 +16,25 @@
 
 package com.github.nbyl.xfdcontrol.web;
 
+import com.github.nbyl.xfdcontrol.core.status.JobStatusService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class MainController {
+public class StatusController {
 
-    @RequestMapping("/")
-    public String index() {
-        return "redirect:/status";
+    @Autowired
+    public JobStatusService statusService;
+
+    @RequestMapping("/status")
+    public ModelAndView showStatusPage() {
+        return new ModelAndView("status");
+    }
+
+    @RequestMapping("/status/view")
+    public ModelAndView getCurrentStatus() {
+        return new ModelAndView("status-view", "jobStatus", this.statusService.getLastStatus());
     }
 }
